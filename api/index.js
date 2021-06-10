@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
     disable_animations,
     border_radius,
     border_color,
+    role,
   } = req.query;
   let stats;
 
@@ -51,6 +52,7 @@ module.exports = async (req, res) => {
       username,
       parseBoolean(count_private),
       parseBoolean(include_all_commits),
+      parseArray(role),
     );
 
     const cacheSeconds = clampValue(
