@@ -336,12 +336,6 @@ const themes = {
     text_color: "61ffca",
     bg_color: "15141b",
   },
-  "rose_pine":{
-    title_color: "9CCFD8",
-    icon_color: "C3A6E6",
-    text_color: "FAF4ED",
-    bg_color: "1f1d29",
-  },
   "rose_pine_dawn":{
     title_color: "56949f",
     icon_color: "907aa9",
