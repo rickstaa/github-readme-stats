@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened]
     branches:
       - master
+      - master-theme-check
       - theme-preview-script
       - "themes/index.js"
 
