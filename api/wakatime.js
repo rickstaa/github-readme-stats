@@ -3,9 +3,10 @@ const {
   renderError,
   parseBoolean,
   clampValue,
+  parseArray,
   CONSTANTS,
-  isLocaleAvailable,
 } = require("../src/common/utils");
+const { isLocaleAvailable } = require("../src/translations");
 const { fetchWakatimeStats } = require("../src/fetchers/wakatime-fetcher");
 const wakatimeCard = require("../src/cards/wakatime-card");
 
@@ -25,7 +26,12 @@ module.exports = async (req, res) => {
     custom_title,
     locale,
     layout,
+    langs_count,
+    hide,
     api_domain,
+    range,
+    border_radius,
+    border_color,
   } = req.query;
 
   res.setHeader("Content-Type", "image/svg+xml");
@@ -35,7 +41,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const stats = await fetchWakatimeStats({ username, api_domain });
+    const stats = await fetchWakatimeStats({ username, api_domain, range });
 
     let cacheSeconds = clampValue(
       parseInt(cache_seconds || CONSTANTS.TWO_HOURS, 10),
@@ -54,6 +60,7 @@ module.exports = async (req, res) => {
         custom_title,
         hide_title: parseBoolean(hide_title),
         hide_border: parseBoolean(hide_border),
+        hide: parseArray(hide),
         line_height,
         title_color,
         icon_color,
@@ -61,8 +68,11 @@ module.exports = async (req, res) => {
         bg_color,
         theme,
         hide_progress,
+        border_radius,
+        border_color,
         locale: locale ? locale.toLowerCase() : null,
         layout,
+        langs_count,
       }),
     );
   } catch (err) {

@@ -1,6 +1,10 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const parse = require("parse-diff");
+const Hjson = require("hjson");
+const snakeCase = require("lodash.snakecase");
+const ColorContrastChecker = require("color-contrast-checker");
+
 require("dotenv").config();
 
 function getPrNumber() {
@@ -13,16 +17,16 @@ function getPrNumber() {
 }
 
 const themeContribGuidelines = `
-  \r> Hi thanks for the theme contribution, please read our theme contribution guidelines
+  \rHi, thanks for the theme contribution, please read our theme [contribution guidelines](https://github.com/anuraghazra/github-readme-stats/blob/master/CONTRIBUTING.md#themes-contribution).  
+  \rWe are currently only accepting color combinations from any VSCode theme or themes which have good color combination to minimize bloating the themes collection.
 
-  \r> We are currently only accepting color combinations from any vscode theme or which has good color combination to minimize bloating the themes collection.
-
-  \r> Also note that if this theme is exclusively for your personal use then instead of adding it to our theme collection you can use card [customization options](https://github.com/anuraghazra/github-readme-stats#customization) 
-  \r> Read our [contribution guidelines](https://github.com/anuraghazra/github-readme-stats/blob/master/CONTRIBUTING.md) for more info
+  \r> Also note that if this theme is exclusively for your personal use, then instead of adding it to our theme collection you can use card [customization options](https://github.com/anuraghazra/github-readme-stats#customization) 
 `;
 
 async function run() {
   try {
+    const ccc = new ColorContrastChecker();
+    const warnings = [];
     const token = core.getInput("token");
     const octokit = github.getOctokit(token || process.env.PERSONAL_TOKEN);
     const pullRequestId = getPrNumber();
@@ -32,7 +36,7 @@ async function run() {
       return;
     }
 
-    let res = await octokit.pulls.get({
+    const res = await octokit.pulls.get({
       owner: "anuraghazra",
       repo: "github-readme-stats",
       pull_number: pullRequestId,
@@ -41,22 +45,27 @@ async function run() {
       },
     });
 
-    let diff = parse(res.data);
-    let colorStrings = diff
+    const diff = parse(res.data);
+    const content = diff
       .find((file) => file.to === "themes/index.js")
       .chunks[0].changes.filter((c) => c.type === "add")
       .map((c) => c.content.replace("+", ""))
       .join("");
 
-    let matches = colorStrings.match(/(title_color:.*bg_color.*\")/);
-    let colors = matches && matches[0].split(",");
+    const themeObject = Hjson.parse(content);
+    const themeName = Object.keys(themeObject)[0];
+    const colors = themeObject[themeName];
+
+    if (themeName !== snakeCase(themeName)) {
+      warnings.push("Theme name isn't in snake_case");
+    }
 
     if (!colors) {
       await octokit.issues.createComment({
         owner: "anuraghazra",
         repo: "github-readme-stats",
         body: `
-        \rTheme preview (bot)
+        \r**Automated Theme preview**
         
         \rCannot create theme preview
 
@@ -66,25 +75,42 @@ async function run() {
       });
       return;
     }
-    colors = colors.map((color) =>
-      color.replace(/.*\:\s/, "").replace(/\"/g, ""),
-    );
 
-    const titleColor = colors[0];
-    const iconColor = colors[1];
-    const textColor = colors[2];
-    const bgColor = colors[3];
+    const titleColor = colors.title_color;
+    const iconColor = colors.icon_color;
+    const textColor = colors.text_color;
+    const bgColor = colors.bg_color;
     const url = `https://github-readme-stats.vercel.app/api?username=anuraghazra&title_color=${titleColor}&icon_color=${iconColor}&text_color=${textColor}&bg_color=${bgColor}&show_icons=true`;
+
+    const colorPairs = {
+      title_color: [titleColor, bgColor],
+      icon_color: [iconColor, bgColor],
+      text_color: [textColor, bgColor],
+    };
+
+    // check color contrast
+    Object.keys(colorPairs).forEach((key) => {
+      const color1 = colorPairs[key][0];
+      const color2 = colorPairs[key][1];
+      if (!ccc.isLevelAA(`#${color1}`, `#${color2}`)) {
+        const permalink = `https://webaim.org/resources/contrastchecker/?fcolor=${color1}&bcolor=${color2}`;
+        warnings.push(
+          `\`${key}\` does not passes [AA contrast ratio](${permalink})`,
+        );
+      }
+    });
 
     await octokit.issues.createComment({
       owner: "anuraghazra",
       repo: "github-readme-stats",
       body: `
-      \rTheme preview (bot)  
+      \r**Automated Theme preview**  
       
+      \r${warnings.map((warning) => `- :warning: ${warning}\n`).join("")}
+
       \ntitle_color: <code>#${titleColor}</code> | icon_color: <code>#${iconColor}</code> | text_color: <code>#${textColor}</code> | bg_color: <code>#${bgColor}</code>
       
-      \rLink: ${url}
+      \r[Preview Link](${url})
 
       \r[![](${url})](${url})
       
