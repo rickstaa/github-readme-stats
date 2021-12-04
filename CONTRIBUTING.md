@@ -17,6 +17,15 @@ Pull requests are the best way to propose changes. We actively welcome your pull
 1. If you've changed APIs, update the documentation.
 1. Issue that pull request!
 
+## Under the hood of github-readme-stats
+
+Interested in diving deeper into understanding how github-readme-stats works?   
+
+[Bohdan](https://github.com/Bogdan-Lyashenko) wrote an amazing in-depth post about it, check it out:
+
+**[Under the hood of github-readme-stats project](https://codecrumbs.io/library/github-readme-stats)**
+
+
 ## Local Development
 
 To run & test github-readme-stats you need to follow few simple steps :-
@@ -71,7 +80,7 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 **Q:** How to count private stats?
 
-> **Ans:** We can only count private commits & we cannot access any other private info of any users, so it's not possible. only way is to deploy on your own instance & use your own PAT (Personal Access Token)
+> **Ans:** We can only count public commits & we cannot access any other private info of any users, so it's not possible. The only way to count your personal private stats is to deploy on your own instance & use your own PAT (Personal Access Token)
 
 ### Bug Reports
 

@@ -2,14 +2,19 @@ const Card = require("../common/Card");
 const I18n = require("../common/I18n");
 const { langCardLocales } = require("../translations");
 const { createProgressNode } = require("../common/createProgressNode");
-const { clampValue, getCardColors, flexLayout } = require("../common/utils");
+const {
+  clampValue,
+  getCardColors,
+  flexLayout,
+  lowercaseTrim,
+  measureText,
+  chunkArray,
+} = require("../common/utils");
 
 const DEFAULT_CARD_WIDTH = 300;
 const DEFAULT_LANGS_COUNT = 5;
 const DEFAULT_LANG_COLOR = "#858585";
 const CARD_PADDING = 25;
-
-const lowercaseTrim = (name) => name.toLowerCase().trim();
 
 const createProgressTextNode = ({ width, color, name, progress }) => {
   const paddingRight = 95;
@@ -30,12 +35,12 @@ const createProgressTextNode = ({ width, color, name, progress }) => {
   `;
 };
 
-const createCompactLangNode = ({ lang, totalSize, x, y }) => {
+const createCompactLangNode = ({ lang, totalSize }) => {
   const percentage = ((lang.size / totalSize) * 100).toFixed(2);
   const color = lang.color || "#858585";
 
   return `
-    <g transform="translate(${x}, ${y})">
+    <g>
       <circle cx="5" cy="6" r="5" fill="${color}" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
         ${lang.name} ${percentage}%
@@ -44,25 +49,38 @@ const createCompactLangNode = ({ lang, totalSize, x, y }) => {
   `;
 };
 
-const createLanguageTextNode = ({ langs, totalSize, x, y }) => {
-  return langs.map((lang, index) => {
-    if (index % 2 === 0) {
-      return createCompactLangNode({
+const getLongestLang = (arr) =>
+  arr.reduce(
+    (savedLang, lang) =>
+      lang.name.length > savedLang.name.length ? lang : savedLang,
+    { name: "" },
+  );
+
+const createLanguageTextNode = ({ langs, totalSize }) => {
+  const longestLang = getLongestLang(langs);
+  const chunked = chunkArray(langs, langs.length / 2);
+  const layouts = chunked.map((array) => {
+    const items = array.map((lang, index) =>
+      createCompactLangNode({
         lang,
-        x,
-        y: 12.5 * index + y,
         totalSize,
         index,
-      });
-    }
-    return createCompactLangNode({
-      lang,
-      x: 150,
-      y: 12.5 + 12.5 * index,
-      totalSize,
-      index,
-    });
+      }),
+    );
+    return flexLayout({
+      items,
+      gap: 25,
+      direction: "column",
+    }).join("");
   });
+
+  const percent = ((longestLang.size / totalSize) * 100).toFixed(2);
+  const minGap = 150;
+  const maxGap = 20 + measureText(`${longestLang.name} ${percent}%`, 11);
+  return flexLayout({
+    items: layouts,
+    gap: maxGap < minGap ? minGap : maxGap,
+  }).join("");
 };
 
 /**
@@ -129,12 +147,14 @@ const renderCompactLayout = (langs, width, totalLanguageSize) => {
       <rect x="0" y="0" width="${offsetWidth}" height="8" fill="white" rx="5" />
     </mask>
     ${compactProgressBar}
-    ${createLanguageTextNode({
-      x: 0,
-      y: 25,
-      langs,
-      totalSize: totalLanguageSize,
-    }).join("")}
+
+    <g transform="translate(0, 25)">
+      ${createLanguageTextNode({
+        langs,
+        totalSize: totalLanguageSize,
+        width,
+      })}
+    </g>
   `;
 };
 

@@ -29,12 +29,12 @@ const fetcher = (variables, token) => {
       variables,
     },
     {
-      Authorization: `bearer ${token}`,
+      Authorization: `token ${token}`,
     },
   );
 };
 
-async function fetchTopLanguages(username, exclude_repo = [], ownerAffiliations) {
+async function fetchTopLanguages(username, ownerAffiliations, exclude_repo = []) {
   if (!username) throw Error("Invalid username");
 
   // Set default value for ownerAffiliations in GraphQL query won't work because
