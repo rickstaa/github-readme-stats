@@ -16,11 +16,14 @@
     "@actions/github": "^4.0.0",
     "@testing-library/dom": "^7.20.0",
     "@testing-library/jest-dom": "^5.11.0",
-    "axios": "^0.19.2",
+    "@uppercod/css-to-object": "^1.1.1",
+    "axios": "^0.24.0",
     "axios-mock-adapter": "^1.18.1",
-    "css-to-object": "^1.1.0",
+    "color-contrast-checker": "^2.1.0",
+    "hjson": "^3.2.2",
     "husky": "^4.2.5",
     "jest": "^26.1.0",
+    "lodash.snakecase": "^4.1.1",
     "parse-diff": "^0.7.0"
   },
   "dependencies": {

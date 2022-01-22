@@ -1,5 +1,5 @@
 require("@testing-library/jest-dom");
-const cssToObject = require("css-to-object");
+const cssToObject = require("@uppercod/css-to-object").cssToObject;
 const renderTopLanguages = require("../src/cards/top-languages-card");
 
 const { queryByTestId, queryAllByTestId } = require("@testing-library/dom");
@@ -109,11 +109,11 @@ describe("Test renderTopLanguages", () => {
     const styleTag = document.querySelector("style");
     const stylesObject = cssToObject(styleTag.textContent);
 
-    const headerStyles = stylesObject[".header"];
-    const langNameStyles = stylesObject[".lang-name"];
+    const headerStyles = stylesObject[":host"][".header "];
+    const langNameStyles = stylesObject[":host"][".lang-name "];
 
-    expect(headerStyles.fill).toBe("#2f80ed");
-    expect(langNameStyles.fill).toBe("#333");
+    expect(headerStyles.fill.trim()).toBe("#2f80ed");
+    expect(langNameStyles.fill.trim()).toBe("#333");
     expect(queryByTestId(document.body, "card-bg")).toHaveAttribute(
       "fill",
       "#fffefe",
@@ -133,11 +133,11 @@ describe("Test renderTopLanguages", () => {
     const styleTag = document.querySelector("style");
     const stylesObject = cssToObject(styleTag.innerHTML);
 
-    const headerStyles = stylesObject[".header"];
-    const langNameStyles = stylesObject[".lang-name"];
+    const headerStyles = stylesObject[":host"][".header "];
+    const langNameStyles = stylesObject[":host"][".lang-name "];
 
-    expect(headerStyles.fill).toBe(`#${customColors.title_color}`);
-    expect(langNameStyles.fill).toBe(`#${customColors.text_color}`);
+    expect(headerStyles.fill.trim()).toBe(`#${customColors.title_color}`);
+    expect(langNameStyles.fill.trim()).toBe(`#${customColors.text_color}`);
     expect(queryByTestId(document.body, "card-bg")).toHaveAttribute(
       "fill",
       "#252525",
@@ -153,11 +153,11 @@ describe("Test renderTopLanguages", () => {
     const styleTag = document.querySelector("style");
     const stylesObject = cssToObject(styleTag.innerHTML);
 
-    const headerStyles = stylesObject[".header"];
-    const langNameStyles = stylesObject[".lang-name"];
+    const headerStyles = stylesObject[":host"][".header "];
+    const langNameStyles = stylesObject[":host"][".lang-name "];
 
-    expect(headerStyles.fill).toBe("#5a0");
-    expect(langNameStyles.fill).toBe(`#${themes.radical.text_color}`);
+    expect(headerStyles.fill.trim()).toBe("#5a0");
+    expect(langNameStyles.fill.trim()).toBe(`#${themes.radical.text_color}`);
     expect(queryByTestId(document.body, "card-bg")).toHaveAttribute(
       "fill",
       `#${themes.radical.bg_color}`,
@@ -173,11 +173,11 @@ describe("Test renderTopLanguages", () => {
       const styleTag = document.querySelector("style");
       const stylesObject = cssToObject(styleTag.innerHTML);
 
-      const headerStyles = stylesObject[".header"];
-      const langNameStyles = stylesObject[".lang-name"];
+      const headerStyles = stylesObject[":host"][".header "];
+      const langNameStyles = stylesObject[":host"][".lang-name "];
 
-      expect(headerStyles.fill).toBe(`#${themes[name].title_color}`);
-      expect(langNameStyles.fill).toBe(`#${themes[name].text_color}`);
+      expect(headerStyles.fill.trim()).toBe(`#${themes[name].title_color}`);
+      expect(langNameStyles.fill.trim()).toBe(`#${themes[name].text_color}`);
       expect(queryByTestId(document.body, "card-bg")).toHaveAttribute(
         "fill",
         `#${themes[name].bg_color}`,
@@ -197,7 +197,7 @@ describe("Test renderTopLanguages", () => {
     );
     expect(queryAllByTestId(document.body, "lang-progress")[0]).toHaveAttribute(
       "width",
-      "120.00",
+      "120",
     );
 
     expect(queryAllByTestId(document.body, "lang-name")[1]).toHaveTextContent(
@@ -205,7 +205,7 @@ describe("Test renderTopLanguages", () => {
     );
     expect(queryAllByTestId(document.body, "lang-progress")[1]).toHaveAttribute(
       "width",
-      "120.00",
+      "120",
     );
 
     expect(queryAllByTestId(document.body, "lang-name")[2]).toHaveTextContent(
@@ -213,7 +213,7 @@ describe("Test renderTopLanguages", () => {
     );
     expect(queryAllByTestId(document.body, "lang-progress")[2]).toHaveAttribute(
       "width",
-      "60.00",
+      "60",
     );
   });
 
@@ -221,6 +221,34 @@ describe("Test renderTopLanguages", () => {
     document.body.innerHTML = renderTopLanguages(langs, { locale: "cn" });
     expect(document.getElementsByClassName("header")[0].textContent).toBe(
       "最常用的语言",
+    );
+  });
+
+  it("should render without rounding", () => {
+    document.body.innerHTML = renderTopLanguages(langs, { border_radius: "0" });
+    expect(document.querySelector("rect")).toHaveAttribute("rx", "0");
+    document.body.innerHTML = renderTopLanguages(langs, {});
+    expect(document.querySelector("rect")).toHaveAttribute("rx", "4.5");
+  });
+
+  it("should render langs with specified langs_count", async () => {
+    options = {
+      langs_count: 1,
+    };
+    document.body.innerHTML = renderTopLanguages(langs, { ...options });
+    expect(queryAllByTestId(document.body, "lang-name").length).toBe(
+      options.langs_count,
+    );
+  });
+
+  it("should render langs with specified langs_count even when hide is set", async () => {
+    options = {
+      hide: ["HTML"],
+      langs_count: 2,
+    };
+    document.body.innerHTML = renderTopLanguages(langs, { ...options });
+    expect(queryAllByTestId(document.body, "lang-name").length).toBe(
+      options.langs_count,
     );
   });
 });

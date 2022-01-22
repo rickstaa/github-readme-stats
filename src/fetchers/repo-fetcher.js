@@ -1,5 +1,5 @@
-const { request } = require("../common/utils");
 const retryer = require("../common/retryer");
+const { request } = require("../common/utils");
 
 const fetcher = (variables, token) => {
   return request(
@@ -38,7 +38,7 @@ const fetcher = (variables, token) => {
       variables,
     },
     {
-      Authorization: `bearer ${token}`,
+      Authorization: `token ${token}`,
     },
   );
 };
@@ -63,7 +63,10 @@ async function fetchRepo(username, reponame) {
     if (!data.user.repository || data.user.repository.isPrivate) {
       throw new Error("User Repository Not found");
     }
-    return data.user.repository;
+    return {
+      ...data.user.repository,
+      starCount: data.user.repository.stargazers.totalCount,
+    };
   }
 
   if (isOrg) {
@@ -73,7 +76,10 @@ async function fetchRepo(username, reponame) {
     ) {
       throw new Error("Organization Repository Not found");
     }
-    return data.organization.repository;
+    return {
+      ...data.organization.repository,
+      starCount: data.organization.repository.stargazers.totalCount,
+    };
   }
 }
 

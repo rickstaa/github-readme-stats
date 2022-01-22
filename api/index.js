@@ -31,9 +31,9 @@ module.exports = async (req, res) => {
     custom_title,
     locale,
     disable_animations,
+    border_radius,
+    border_color,
   } = req.query;
-  let stats;
-
   res.setHeader("Content-Type", "image/svg+xml");
 
   if (blacklist.includes(username)) {
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    stats = await fetchStats(
+    const stats = await fetchStats(
       username,
       parseBoolean(count_private),
       parseBoolean(include_all_commits),
@@ -74,6 +74,8 @@ module.exports = async (req, res) => {
         bg_color,
         theme,
         custom_title,
+        border_radius,
+        border_color,
         locale: locale ? locale.toLowerCase() : null,
         disable_animations: parseBoolean(disable_animations),
       }),

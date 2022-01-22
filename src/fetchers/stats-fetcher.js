@@ -1,8 +1,9 @@
-const { request, logger, CustomError } = require("../common/utils");
 const axios = require("axios");
+const githubUsernameRegex = require("github-username-regex");
+
 const retryer = require("../common/retryer");
 const calculateRank = require("../calculateRank");
-const githubUsernameRegex = require("github-username-regex");
+const { request, logger, CustomError } = require("../common/utils");
 
 require("dotenv").config();
 
@@ -24,7 +25,10 @@ const fetcher = (variables, token) => {
           pullRequests(first: 1) {
             totalCount
           }
-          issues(first: 1) {
+          openIssues: issues(states: OPEN) {
+            totalCount
+          }
+          closedIssues: issues(states: CLOSED) {
             totalCount
           }
           followers {
@@ -65,7 +69,7 @@ const totalCommitsFetcher = async (username) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/vnd.github.cloak-preview",
-        Authorization: `bearer ${token}`,
+        Authorization: `token ${token}`,
       },
     });
   };
@@ -113,7 +117,7 @@ async function fetchStats(
   const user = res.data.data.user;
 
   stats.name = user.name || user.login;
-  stats.totalIssues = user.issues.totalCount;
+  stats.totalIssues = user.openIssues.totalCount + user.closedIssues.totalCount;
 
   // normal commits
   stats.totalCommits = user.contributionsCollection.totalCommitContributions;
