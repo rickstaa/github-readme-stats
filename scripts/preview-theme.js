@@ -1,6 +1,8 @@
 /**
  * @file This script is used to preview the theme on theme PRs.
  */
+import * as dotenv from "dotenv";
+dotenv.config();
 
 import core, { debug, setFailed } from "@actions/core";
 import github from "@actions/github";
@@ -69,12 +71,8 @@ const getPrNumber = () => {
  * @returns {string} Github token.
  */
 const getGithubToken = () => {
-<<<<<<< HEAD
-  const token = core.getInput("github_token")
-=======
   const token = core.getInput("github_token") || process.env.GITHUB_TOKEN;
->>>>>>> master
-  console.log(token)
+  console.log(token);
   if (!token) {
     throw Error("Could not find github token");
   }
