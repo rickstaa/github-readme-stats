@@ -361,11 +361,17 @@ export const themes = {
     text_color: "e0def4",
     bg_color: "191724",
   },
-    test_pine: {
+  test_pine: {
     title_color: "9ccfd8",
     icon_color: "ebbcba",
     text_color: "e0def4",
     bg_color: "191724",
+  },
+  tester_pine: {
+    title_color: "ffffff",
+    icon_color: "ffffff",
+    text_color: "ffffff",
+    bg_color: "ffffff",
   },
 };
 
