@@ -69,7 +69,8 @@ const getPrNumber = () => {
  * @returns {string} Github token.
  */
 const getGithubToken = () => {
-  const token = core.getInput("github_token") || process.env.PERSONAL_TOKEN;
+  const token = core.getInput("github_token") || process.env.GITHUB_TOKEN;
+  console.log(token)
   if (!token) {
     throw Error("Could not find github token");
   }
