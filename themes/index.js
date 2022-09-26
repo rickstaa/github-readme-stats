@@ -381,6 +381,13 @@ export const themes = {
     bg_color: "09131B",
     border_color: "0c1a25",
   },
+  codeSTACKr7: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
 };
 
 export default themes;
