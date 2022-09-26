@@ -361,6 +361,33 @@ export const themes = {
     text_color: "e0def4",
     bg_color: "191724",
   },
+  rosePine: {
+    title_color: "fff",
+    icon_color: "fff",
+    text_color: "fff",
+    bg_color: "fff",
+  },
+  rosePine3: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
+  codeSTACKr3: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
+  codeSTACKr7: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
 };
 
 export default themes;
