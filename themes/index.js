@@ -361,6 +361,37 @@ export const themes = {
     text_color: "e0def4",
     bg_color: "191724",
   },
+  aurar: {
+    title_color: "a277ff",
+    icon_color: "ffca85",
+    text_color: "61ffca",
+    bg_color: "15141b",
+  },
+  apprenticer: {
+    title_color: "ffffff",
+    icon_color: "ffffaf",
+    text_color: "bcbcbc",
+    bg_color: "262626",
+  },
+  moltackr: {
+    title_color: "86092C",
+    icon_color: "86092C",
+    text_color: "574038",
+    bg_color: "F5E1C0",
+  },
+  codeSTACKrr: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
+  rose_piner: {
+    title_color: "9ccfd8",
+    icon_color: "ebbcba",
+    text_color: "e0def4",
+    bg_color: "191724",
+  },
 };
 
 export default themes;
