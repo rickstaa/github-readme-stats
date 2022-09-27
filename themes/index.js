@@ -356,9 +356,9 @@ export const themes = {
     border_color: "0c1a25",
   },
   rose_pine: {
-    title_color: "9ccfd8",
-    icon_color: "ebbcba",
-    text_color: "e0def4",
+    title_color: "9c",
+    icon_color: "eb",
+    text_color: "e0de",
     bg_color: "191724",
   },
 };
