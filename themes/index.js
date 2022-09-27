@@ -360,7 +360,20 @@ export const themes = {
     icon_color: "ebbcba",
     text_color: "e0def4",
     bg_color: "191724",
-  },
+  }
+  
+  ,
+  
+  roser_pine: 
+  {
+   
+    title_color: "9ccfd8",
+    icon_color: "ebbcba",
+    text_color: "e0def4",
+    bg_color: "191724",
+  }
+  ,
+  
 };
 
 export default themes;
