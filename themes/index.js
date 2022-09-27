@@ -12,7 +12,10 @@ export const themes = {
     text_color: "434d58",
     bg_color: "fffefe",
   },
-  dark: {
+  dark: {Styling with Markdown is supported
+￼ Close pull request
+￼Comment
+
     title_color: "fff",
     icon_color: "79ff97",
     text_color: "9f9f9f",
@@ -356,6 +359,12 @@ export const themes = {
     border_color: "0c1a25",
   },
   rose_pine: {
+    title_color: "9ccfd8",
+    icon_color: "ebbcba",
+    text_color: "e0def4",
+    bg_color: "191724",
+  },
+  roser_pine: {
     title_color: "9ccfd8",
     icon_color: "ebbcba",
     text_color: "e0def4",
