@@ -81,6 +81,9 @@ const getPrNumber = () => {
  * @returns {string} Github token.
  */
 const getGithubToken = () => {
+  console.log(process.env)
+  console.log(process.env.GITHUB_TOKEN)
+  console.log(process.env.PERSONAL_TOKEN)
   const token =
     core.getInput("github_token") ||
     process.env.GITHUB_TOKEN ||
