@@ -26,8 +26,8 @@ export const themes = {
   },
   merko: {
     title_color: "abd200",
-    icon_color: "b7d364",
-    text_color: "68b587",
+    icon_color: "ffffff",
+    text_color: "ffffff",
     bg_color: "0a0f0b",
   },
   gruvbox: {
