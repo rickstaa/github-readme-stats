@@ -361,6 +361,12 @@ export const themes = {
     text_color: "e0def4",
     bg_color: "191724",
   },
+  roser_pine: {
+    title_color: "9cc",
+    icon_color: "ebb",
+    text_color: "e0d",
+    bg_color: "191724",
+  },
 };
 
 export default themes;
