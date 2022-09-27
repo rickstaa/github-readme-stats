@@ -1,7 +1,7 @@
 name: Theme preview
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, edited, reopened, synchronize]
     branches:
       - master
@@ -21,6 +21,17 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
+      - name: Test
+        env:
+          TEST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEST_SECRET: ${{ secrets.PERSONAL_TOKEN }}
+        run: |
+          echo ${#TEST_GITHUB_TOKEN}
+          echo ${#TEST_SECRET}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - run: npm run preview-theme
         env:
           # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
