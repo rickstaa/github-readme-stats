@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    permissions: write-all
     runs-on: ubuntu-latest
     name: Install & Preview
 
@@ -23,4 +24,4 @@ jobs:
           useLockFile: false
       - run: npm run preview-theme
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
