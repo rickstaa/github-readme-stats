@@ -361,6 +361,55 @@ export const themes = {
     text_color: "e0def4",
     bg_color: "191724",
   },
+  noctis_minimusr: {
+    title_color: "d3b692",
+    icon_color: "72b7c0",
+    text_color: "c5cdd3",
+    bg_color: "1b2932",
+  },
+  cobalt2r: {
+    title_color: "ffc600",
+    icon_color: "ffffff",
+    text_color: "0088ff",
+    bg_color: "193549",
+  },
+  swiftr: {
+    title_color: "000000",
+    icon_color: "f05237",
+    text_color: "000000",
+    bg_color: "f7f7f7",
+  },
+  aurar: {
+    title_color: "a277ff",
+    icon_color: "ffca85",
+    text_color: "61ffca",
+    bg_color: "15141b",
+  },
+  apprenticer: {
+    title_color: "ffffff",
+    icon_color: "ffffaf",
+    text_color: "bcbcbc",
+    bg_color: "262626",
+  },
+  moltackr: {
+    title_color: "86092C",
+    icon_color: "86092C",
+    text_color: "574038",
+    bg_color: "F5E1C0",
+  },
+  codeSTACKrr: {
+    title_color: "ff652f",
+    icon_color: "FFE400",
+    text_color: "ffffff",
+    bg_color: "09131B",
+    border_color: "0c1a25",
+  },
+  rose_piner: {
+    title_color: "9ccfd8",
+    icon_color: "ebbcba",
+    text_color: "e0def4",
+    bg_color: "191724",
+  },
 };
 
 export default themes;
