@@ -357,7 +357,7 @@ export const themes = {
   },
   rose_pine: {
     title_color: "9ccfd8",
-    icon_color: "ebbcba",
+    icon_color: "ffffff",
     text_color: "e0def4",
     bg_color: "191724",
   },
