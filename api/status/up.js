@@ -12,7 +12,8 @@ const PATs = Object.keys(process.env).filter((key) =>
   /PAT_\d*$/.exec(key),
 ).length;
 const RETRIES = PATs ? PATs : 7;
-export const RATE_LIMIT_SECONDS = 60 * 15; // 1 request per 15 minutes
+// export const RATE_LIMIT_SECONDS = 60 * 15; // 1 request per 15 minutes
+export const RATE_LIMIT_SECONDS = 1; // 1 request per second
 
 /**
  * Simple uptime check fetcher for the PATs.

@@ -7,7 +7,8 @@
 
 import { logger, request } from "../../src/common/utils.js";
 
-export const RATE_LIMIT_SECONDS = 60 * 60 * 24; // 1 request per day.
+// export const RATE_LIMIT_SECONDS = 60 * 60 * 24; // 1 request per day.
+export const RATE_LIMIT_SECONDS = 1; // 1 request per second
 
 /**
  * Simple uptime check fetcher for the PATs.
