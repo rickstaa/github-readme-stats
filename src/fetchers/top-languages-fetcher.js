@@ -58,14 +58,21 @@ const fetcher = (variables, token) => {
  * @param {string[]} ownerAffiliations The owner affiliations to filter by.
  * @returns {Promise<import("./types").TopLangData>} Top languages data.
  */
-async function fetchTopLanguages(username, ownerAffiliations, exclude_repo = []) {
+async function fetchTopLanguages(
+  username,
+  ownerAffiliations,
+  exclude_repo = [],
+) {
   if (!username) throw new MissingParamError(["username"]);
 
   // Set default value for ownerAffiliations in GraphQL query won't work because
   // parseArray() will always return an empty array even nothing was specified
   // and GraphQL would consider that empty arr as a valid value. Nothing will be
   // queried in that case as no affiliation is presented.
-  ownerAffiliations = ownerAffiliations.length > 0 ? ownerAffiliations : ["OWNER"];
+  ownerAffiliations =
+    ownerAffiliations && ownerAffiliations.length > 0
+      ? ownerAffiliations
+      : ["OWNER"];
   const res = await retryer(fetcher, { login: username, ownerAffiliations });
 
   if (res.data.errors) {

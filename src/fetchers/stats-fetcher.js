@@ -153,7 +153,12 @@ const totalStarsFetcher = async (username, repoToHide, ownerAffiliations) => {
   let hasNextPage = true;
   let endCursor = null;
   while (hasNextPage) {
-    const variables = { login: username, first: 100, after: endCursor, ownerAffiliations};
+    const variables = {
+      login: username,
+      first: 100,
+      after: endCursor,
+      ownerAffiliations,
+    };
     let res = await retryer(repositoriesFetcher, variables);
 
     if (res.data.errors) {
@@ -212,7 +217,10 @@ async function fetchStats(
   // parseArray() will always return an empty array even nothing was specified
   // and GraphQL would consider that empty arr as a valid value. Nothing will be
   // queried in that case as no affiliation is presented.
-  ownerAffiliations = ownerAffiliations.length > 0 ? ownerAffiliations : ["OWNER"];
+  ownerAffiliations =
+    ownerAffiliations && ownerAffiliations.length > 0
+      ? ownerAffiliations
+      : ["OWNER"];
   let res = await retryer(fetcher, { login: username, ownerAffiliations });
 
   // Catch GraphQL errors.
