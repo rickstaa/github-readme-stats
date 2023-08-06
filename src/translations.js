@@ -1,11 +1,14 @@
+// @ts-check
+
 import { encodeHTML } from "./common/utils.js";
 
 /**
  * Retrieves stat card labels in the available locales.
  *
- * @param {string} name The name of the locale.
- * @param {string} apostrophe Whether to use apostrophe or not.
- * @returns {Object} The locales object.
+ * @param {object} props Function arguments.
+ * @param {string} props.name The name of the locale.
+ * @param {string} props.apostrophe Whether to use apostrophe or not.
+ * @returns {object} The locales object.
  *
  * @see https://www.andiamo.co.uk/resources/iso-language-codes/ for language codes.
  */
@@ -25,6 +28,37 @@ const statCardLocales = ({ name, apostrophe }) => {
       hu: `${encodedName} GitHub statisztika`,
       it: `Statistiche GitHub di ${encodedName}`,
       ja: `${encodedName}の GitHub 統計`,
+      kr: `${encodedName}의 GitHub 통계`,
+      nl: `${encodedName}'${apostrophe} GitHub-statistieken`,
+      "pt-pt": `Estatísticas do GitHub de ${encodedName}`,
+      "pt-br": `Estatísticas do GitHub de ${encodedName}`,
+      np: `${encodedName}'${apostrophe} गिटहब तथ्याङ्क`,
+      el: `Στατιστικά GitHub του ${encodedName}`,
+      ru: `Статистика GitHub пользователя ${encodedName}`,
+      "uk-ua": `Статистика GitHub користувача ${encodedName}`,
+      id: `Statistik GitHub ${encodedName}`,
+      ml: `${encodedName}'${apostrophe} ഗിറ്റ്ഹബ് സ്ഥിതിവിവരക്കണക്കുകൾ`,
+      my: `Statistik GitHub ${encodedName}`,
+      sk: `GitHub štatistiky používateľa ${encodedName}`,
+      tr: `${encodedName} Hesabının GitHub Yıldızları`,
+      pl: `Statystyki GitHub użytkownika ${encodedName}`,
+      uz: `${encodedName}ning GitHub'dagi statistikasi`,
+      vi: `Thống Kê GitHub ${encodedName}`,
+      se: `GitHubstatistik för ${encodedName}`,
+    },
+    "statcard.ranktitle": {
+      ar: `${encodedName} إحصائيات غيت هاب`,
+      cn: `${encodedName} 的 GitHub 统计数据`,
+      "zh-tw": `${encodedName} 的 GitHub 統計數據`,
+      cs: `GitHub statistiky uživatele ${encodedName}`,
+      de: `${encodedName + apostrophe} GitHub-Statistiken`,
+      en: `${encodedName}'${apostrophe} GitHub Rank`,
+      bn: `${encodedName} এর GitHub পরিসংখ্যান`,
+      es: `Estadísticas de GitHub de ${encodedName}`,
+      fr: `Statistiques GitHub de ${encodedName}`,
+      hu: `${encodedName} GitHub statisztika`,
+      it: `Statistiche GitHub di ${encodedName}`,
+      ja: `${encodedName} の GitHub ランク`,
       kr: `${encodedName}의 GitHub 통계`,
       nl: `${encodedName}'${apostrophe} GitHub-statistieken`,
       "pt-pt": `Estatísticas do GitHub de ${encodedName}`,
@@ -204,7 +238,7 @@ const statCardLocales = ({ name, apostrophe }) => {
       "zh-tw": "审查的 PR 总数",
       cs: "Celkový počet PR",
       de: "Insgesamt überprüfte PRs",
-      en: "Total PRs reviewed",
+      en: "Total PRs Reviewed",
       bn: "সর্বমোট পুনরালোচনা করা PR",
       es: "PR totales revisados",
       fr: "Nombre total de PR examinés",
@@ -319,6 +353,7 @@ const repoCardLocales = {
     sk: "Šablóna",
     tr: "Şablon",
     pl: "Szablony",
+    uz: "Shablon",
     vi: "Mẫu",
     se: "Mall",
   },
@@ -349,6 +384,7 @@ const repoCardLocales = {
     sk: "Archivované",
     tr: "Arşiv",
     pl: "Zarchiwizowano",
+    uz: "Arxivlangan",
     vi: "Đã Lưu Trữ",
     se: "Arkiverade",
   },
@@ -382,6 +418,7 @@ const langCardLocales = {
     sk: "Najviac používané jazyky",
     tr: "En Çok Kullanılan Diller",
     pl: "Najczęściej używane języki",
+    uz: "Eng koʻp ishlatiladigan tillar",
     vi: "Ngôn Ngữ Thường Sử Dụng",
     se: "Mest använda språken",
   },
@@ -412,6 +449,7 @@ const langCardLocales = {
     sk: "Žiadne údaje o jazykoch.",
     tr: "Dil verisi yok.",
     pl: "Brak danych dotyczących języków.",
+    uz: "Til haqida ma'lumot yo'q.",
     vi: "Không có dữ liệu ngôn ngữ.",
     se: "Inga språkdata.",
   },
@@ -445,6 +483,7 @@ const wakatimeCardLocales = {
     sk: "Wakatime štatistika",
     tr: "Waketime İstatistikler",
     pl: "Statystyki Wakatime",
+    uz: "Wakatime statistikasi",
     vi: "Thống Kê Wakatime",
     se: "Wakatime statistik",
   },
@@ -475,6 +514,7 @@ const wakatimeCardLocales = {
     sk: "Minulý rok",
     tr: "Geçen yıl",
     pl: "W zeszłym roku",
+    uz: "O'tgan yil",
     vi: "Năm ngoái",
     se: "Förra året",
   },
@@ -505,6 +545,7 @@ const wakatimeCardLocales = {
     sk: "Posledných 7 dní",
     tr: "Son 7 gün",
     pl: "Ostatnie 7 dni",
+    uz: "O'tgan 7 kun",
     vi: "7 ngày qua",
     se: "Senaste 7 dagarna",
   },
@@ -535,6 +576,7 @@ const wakatimeCardLocales = {
     sk: "Profil používateľa Wakatime nie je verejný",
     tr: "Wakatime kullanıcı profili herkese açık değil",
     pl: "Profil użytkownika Wakatime nie jest publiczny",
+    uz: "Wakatime foydalanuvchi profili ochiq emas",
     vi: "Hồ sơ người dùng Wakatime không công khai",
     se: "Wakatime användarprofil inte offentlig",
   },
@@ -567,6 +609,7 @@ const wakatimeCardLocales = {
     sk: "Používateľ neposkytuje verejne podrobné štatistiky kódu",
     tr: "Kullanıcı ayrıntılı kod istatistiklerini herkese açık olarak paylaşmıyor",
     pl: "Użytkownik nie udostępnia publicznie szczegółowych statystyk kodu",
+    uz: "Foydalanuvchi umumiy ko`d statistikasini ochiq ravishda almashmaydi",
     vi: "Người dùng không chia sẻ thống kê mã chi tiết công khai",
     se: "Användaren delar inte offentligt detaljerad kodstatistik",
   },

@@ -3,6 +3,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { calculateRank } from "../src/calculateRank.js";
 import { fetchStats } from "../src/fetchers/stats-fetcher.js";
+import { expect, it, describe, beforeEach, afterEach } from "@jest/globals";
 
 // Test parameters.
 const data_stats = {
@@ -107,6 +108,7 @@ describe("Test fetchStats", () => {
       all_commits: false,
       commits: 100,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 300,
@@ -140,6 +142,7 @@ describe("Test fetchStats", () => {
       all_commits: false,
       commits: 100,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 300,
@@ -179,6 +182,7 @@ describe("Test fetchStats", () => {
       all_commits: true,
       commits: 1000,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 300,
@@ -209,6 +213,7 @@ describe("Test fetchStats", () => {
       all_commits: true,
       commits: 1000,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 200,
@@ -237,6 +242,7 @@ describe("Test fetchStats", () => {
       all_commits: false,
       commits: 100,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 400,
@@ -265,6 +271,7 @@ describe("Test fetchStats", () => {
       all_commits: false,
       commits: 100,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 300,
@@ -293,6 +300,7 @@ describe("Test fetchStats", () => {
       all_commits: false,
       commits: 100,
       prs: 300,
+      reviews: 50,
       issues: 200,
       repos: 5,
       stars: 300,

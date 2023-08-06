@@ -5,6 +5,7 @@ import api from "../api/index.js";
 import { calculateRank } from "../src/calculateRank.js";
 import { renderStatsCard } from "../src/cards/stats-card.js";
 import { CONSTANTS, renderError } from "../src/common/utils.js";
+import { expect, it, describe, afterEach } from "@jest/globals";
 
 const stats = {
   name: "Anurag Hazra",
@@ -23,6 +24,7 @@ stats.rank = calculateRank({
   all_commits: false,
   commits: stats.totalCommits,
   prs: stats.totalPRs,
+  reviews: stats.totalReviews,
   issues: stats.totalIssues,
   repos: 1,
   stars: stats.totalStars,
